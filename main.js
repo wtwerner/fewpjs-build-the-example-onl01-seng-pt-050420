@@ -4,7 +4,41 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+const modal = document.querySelector('#modal');
+const likes = document.querySelectorAll(".like");
 
+modal.className = "hidden";
+
+likes.forEach(function(like) {
+  like.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (e.target.innerHTML === EMPTY_HEART || e.target.innerHTML === FULL_HEART) {
+      mimicServerCall()
+        .then(function(res) {
+          toggleHeart(e)
+        })
+        .catch(err => toggleError(err))
+    }
+  })
+})
+
+function toggleError(err) {
+  modal.classList.remove("hidden");
+  modal.innerHTML = err.message;
+  setTimeout(function() {
+    modal.classList.add("hidden");
+  }, 4000);
+};
+
+function toggleHeart(e) {
+  if (e.target.innerHTML === FULL_HEART) {
+    e.target.innerHTML = EMPTY_HEART;
+    e.target.classList.remove("activated-heart");
+  } else {
+    e.target.innerHTML = FULL_HEART;
+    e.target.classList.add("activated-heart");
+  }
+};
 
 
 //------------------------------------------------------------------------------
