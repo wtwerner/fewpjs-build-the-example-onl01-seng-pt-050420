@@ -14,7 +14,7 @@ likes.forEach(function(like) {
     e.preventDefault();
     if (e.target.innerHTML === EMPTY_HEART || e.target.innerHTML === FULL_HEART) {
       mimicServerCall()
-        .then(function(res) {
+        .then(function() {
           toggleHeart(e)
         })
         .catch(err => toggleError(err))
